@@ -43,6 +43,6 @@ Here is a short description of each MEL script:
 - **SoftenAllEdges**: Makes every edge of every polygon object have soft normal shading
 - **HardenAllEdges**: Makes every edge of every polygon object have hard polygonal normal shading
 ---
-and these last 2 scripts are specifically for submitting rips to the models resource
+and these last 2 scripts are specifically intended for submitting model rips to [the Models Resource](https://www.models-resource.com/)
 - **SmallScreenshot**: Saves a 168x145 png screenshot of the current view (without HUD elements and bone joints)
 - **LargeScreenshot**: Saves a 750x650 png screenshot of the current view (without HUD elements and bone joints)
