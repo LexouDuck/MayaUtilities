@@ -2,17 +2,21 @@
 
 ---
 
+This is a set of MEL scripts useful for anyone importing models into Maya often
+
 ![Custom Shelf](shelf.png)
 
 All of the individual scripts on this repo are stored within the button shelf file 'shelf_Custom.mel'
 
-It must be placed in %MAYA_FOLDER%/%VERSION%/prefs/shelves/ so that Maya can find and load the custom shelf
+It must be placed in **%MAYA_FOLDER%/%VERSION%/prefs/shelves/** so that Maya can find and load the custom shelf
 
-You may rename the shelf however you wish, in the format 'shelf_NewName.mel' (if you decide to do so, you also need to change the first line of the script accordingly)
+You may rename the shelf however you wish, in the format `shelf_NewName.mel` (if you decide to do so, you also need to change the first line of the script accordingly)
 
 Otherwise, the individual scripts can be placed in the Script Editor and saved as shelf buttons onto any existing shelf.
 
 
+
+For more details on importing models into Maya and what these scripts do, see [this page](https://github.com/scurest/apicula/wiki/IMPORT:-Maya)
 
 Here is a short description of each MEL script:
 ---
