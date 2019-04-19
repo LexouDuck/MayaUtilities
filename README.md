@@ -1,10 +1,18 @@
 # MayaUtilities
+
 ---
+
+![Custom Shelf](shelf.png)
+
 All of the individual scripts on this repo are stored within the button shelf file 'shelf_Custom.mel'
-You may rename the shelf however you wish, in the format 'shelf_NewName.mel' (if you decide to do so, you also need to change the first line of the script accordingly)
+
 It must be placed in %MAYA_FOLDER%/%VERSION%/prefs/shelves/ so that Maya can find and load the custom shelf
 
+You may rename the shelf however you wish, in the format 'shelf_NewName.mel' (if you decide to do so, you also need to change the first line of the script accordingly)
+
 Otherwise, the individual scripts can be placed in the Script Editor and saved as shelf buttons onto any existing shelf.
+
+
 
 Here is a short description of each MEL script:
 ---
@@ -12,7 +20,7 @@ Here is a short description of each MEL script:
 - **TransparencyCorrect**: Make alpha channels work properly for imported models by setting 'alpha is luminance' to false. Use this when the entire model is more or less see-through, it will make the correct parts of the model opaque as they should be.
 ---
 - **UnfilterAllTextures**: Sets every image texture in the scene to be unfiltered (ie: aliased, pixelated)
-- FilterAllTextures: Sets every image texture in the scene to have quadratic bilinear filtering
+- **FilterAllTextures**: Sets every image texture in the scene to have quadratic bilinear filtering
 ---
 - **MirrorAllTextureUVs**: Make it so all UV nodes in the scene have U & V mirrored texture space
 - **UnMirrorAllTextureUVs**: Make all UV nodes in the scene have U & V mirroring set to false

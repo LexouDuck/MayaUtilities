@@ -1,0 +1,8 @@
+// UnfilterAllTextures
+// Sets every image texture in the scene to be unfiltered (ie: aliased, pixelated)
+string $temp;
+string $files[] = `ls -type file`;
+for ($temp in $files)
+{
+    setAttr ($temp + ".filterType") 0;
+}

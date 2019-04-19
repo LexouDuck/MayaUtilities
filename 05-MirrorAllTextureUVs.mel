@@ -1,0 +1,9 @@
+// MirrorAllTextureUVs
+// Make it so all UV nodes in the scene have U & V mirrored texture space
+string $temp;
+string $textures[] = `ls -type place2dTexture`;
+for ($temp in $textures)
+{
+    setAttr ($temp + ".mirrorU") 1;
+    setAttr ($temp + ".mirrorV") 1;
+}

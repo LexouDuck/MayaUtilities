@@ -1,0 +1,8 @@
+// FilterAllTextures
+// Sets every image texture in the scene to have quadratic bilinear filtering
+string $temp;
+string $files[] = `ls -type file`;
+for ($temp in $files)
+{
+    setAttr ($temp + ".filterType") 3;
+}

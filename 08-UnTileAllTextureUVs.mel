@@ -1,0 +1,9 @@
+// UnTileAllTextureUVs
+// Make it so all UV nodes in the scene only have texture space within the 0-1 UV square, so the outside of this UV space is a solid color
+string $temp;
+string $textures[] = `ls -type place2dTexture`;
+for ($temp in $textures)
+{
+    setAttr ($temp + ".wrapU") 0;
+    setAttr ($temp + ".wrapV") 0;
+}

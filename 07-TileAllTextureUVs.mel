@@ -1,0 +1,9 @@
+// TileAllTextureUVs
+// Make it so all UV nodes in the scene have repeating tiled texture space
+string $temp;
+string $textures[] = `ls -type place2dTexture`;
+for ($temp in $textures)
+{
+    setAttr ($temp + ".wrapU") 1;
+    setAttr ($temp + ".wrapV") 1;
+}

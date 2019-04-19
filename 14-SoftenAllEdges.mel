@@ -1,0 +1,19 @@
+// SoftenAllEdges
+// Makes every edge of every polygon object have soft normal shading
+string $temp;
+int $edges[];
+string $shapes[] = `ls -exactType transform`;
+for ($temp in $shapes)
+{
+    print ($temp + " -> ");
+    if ($temp != "persp" &&
+        $temp != "front" &&
+        $temp != "side" &&
+        $temp != "top")
+    {
+        $edges = `polyEvaluate -edge $temp`;
+        print ($edges);
+        polySoftEdge -ch 1 -a 180 ($temp + ".e[0:" + $edges[0] + "]");
+    }
+    else print "none";
+}

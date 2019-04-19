@@ -1,0 +1,19 @@
+// MergeAllVertices
+// Merges together any vertices that are within 0.001 distance of each other
+string $temp;
+int $vertices[];
+string $shapes[] = `ls -exactType transform`;
+for ($temp in $shapes)
+{
+    print ($temp + " -> ");
+    if ($temp != "persp" &&
+        $temp != "front" &&
+        $temp != "side" &&
+        $temp != "top")
+    {
+        $vertices = `polyEvaluate -vertex $temp`;
+        print ($vertices);
+        polyMergeVertex -ch 1 -d 0.001 ($temp + ".vtx[0:" + $vertices[0] + "]");
+    }
+    else print "none";
+}

@@ -1,0 +1,569 @@
+global proc shelf_Custom () {
+    global string $gBuffStr;
+    global string $gBuffStr0;
+    global string $gBuffStr1;
+
+
+    shelfButton
+        -enableCommandRepeat 1
+        -enable 1
+        -width 35
+        -height 35
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -annotation "AlphaNodeCorrect: Manually plugs in the output alpha of each texture node to its corresponding material node's input transparency.\nUse this if the parts of the model which should be transparent appear opaque." 
+        -enableBackground 0
+        -backgroundColor 0 0 0 
+        -highlightColor 0.321569 0.521569 0.65098 
+        -align "center" 
+        -label "AlphaNodeCorrect" 
+        -labelOffset 0
+        -rotation 0
+        -flipX 0
+        -flipY 0
+        -useAlpha 1
+        -font "plainLabelFont" 
+        -imageOverlayLabel "AlphaNodeCorrect" 
+        -overlayLabelColor 0.8 0.8 0.8 
+        -overlayLabelBackColor 0 0 0 0.5 
+        -image "commandButton.png" 
+        -image1 "commandButton.png" 
+        -style "iconOnly" 
+        -marginWidth 1
+        -marginHeight 1
+        -command "string $temp;\nstring $texture;\nstring $textures[];\nstring $phongs[] = `ls -type phong`;\nfor ($temp in $phongs)\n{\n    $textures = `listConnections -type file $temp`;\n    for ($texture in $textures)\n    {\n        connectAttr -f ($texture + \".outAlpha\") ($temp + \".transparencyR\");\n        connectAttr -f ($texture + \".outAlpha\") ($temp + \".transparencyG\");\n        connectAttr -f ($texture + \".outAlpha\") ($temp + \".transparencyB\");\n    }\n    setAttr ($texture + \".alphaGain\") -1;\n    setAttr ($texture + \".alphaOffset\") 1;\n}\nsetAttr \"hardwareRenderingGlobals.transparencyAlgorithm\" 3;" 
+        -sourceType "mel" 
+        -commandRepeatable 1
+        -flat 1
+    ;
+    shelfButton
+        -enableCommandRepeat 1
+        -enable 1
+        -width 35
+        -height 35
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -annotation "TransparencyCorrect: Make alpha channels work properly for imported models by setting 'alpha is luminance' to false.\nUse this when the entire model is more or less see-through, it will make the correct parts of the model opaque as they should be." 
+        -enableBackground 0
+        -backgroundColor 0 0 0 
+        -highlightColor 0.321569 0.521569 0.65098 
+        -align "center" 
+        -label "TransparencyCorrect" 
+        -labelOffset 0
+        -rotation 0
+        -flipX 0
+        -flipY 0
+        -useAlpha 1
+        -font "plainLabelFont" 
+        -imageOverlayLabel "TransparencyCorrect" 
+        -overlayLabelColor 0.8 0.8 0.8 
+        -overlayLabelBackColor 0 0 0 0.5 
+        -image "commandButton.png" 
+        -image1 "commandButton.png" 
+        -style "iconOnly" 
+        -marginWidth 1
+        -marginHeight 1
+        -command "string $temp;\nstring $files[] = `ls -type file`;\nfor ($temp in $files)\n{\n    setAttr ($temp + \".alphaIsLuminance\") 0;\n}\nsetAttr \"hardwareRenderingGlobals.transparencyAlgorithm\" 3;\n" 
+        -sourceType "mel" 
+        -commandRepeatable 1
+        -flat 1
+    ;
+    shelfButton
+        -enableCommandRepeat 1
+        -enable 1
+        -width 35
+        -height 35
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -annotation "UnfilterAllTextures: Sets every image texture in the scene to be unfiltered (ie: aliased, pixelated)" 
+        -enableBackground 0
+        -backgroundColor 0 0 0 
+        -highlightColor 0.321569 0.521569 0.65098 
+        -align "center" 
+        -label "UnfilterAllTextures" 
+        -labelOffset 0
+        -rotation 0
+        -flipX 0
+        -flipY 0
+        -useAlpha 1
+        -font "plainLabelFont" 
+        -imageOverlayLabel "UnfilterAllTextures" 
+        -overlayLabelColor 0.8 0.8 0.8 
+        -overlayLabelBackColor 0 0 0 0.5 
+        -image "texturePlacement.png" 
+        -image1 "texturePlacement.png" 
+        -style "iconOnly" 
+        -marginWidth 1
+        -marginHeight 1
+        -command "string $temp;\nstring $files[] = `ls -type file`;\nfor ($temp in $files)\n{\n    setAttr ($temp + \".filterType\") 0;\n}" 
+        -sourceType "mel" 
+        -commandRepeatable 1
+        -flat 1
+    ;
+    shelfButton
+        -enableCommandRepeat 1
+        -enable 1
+        -width 35
+        -height 35
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -annotation "FilterAllTextures: Sets every image texture in the scene to have quadratic bilinear filtering" 
+        -enableBackground 0
+        -backgroundColor 0 0 0 
+        -highlightColor 0.321569 0.521569 0.65098 
+        -align "center" 
+        -label "FilterAllTextures" 
+        -labelOffset 0
+        -rotation 0
+        -flipX 0
+        -flipY 0
+        -useAlpha 1
+        -font "plainLabelFont" 
+        -imageOverlayLabel "FilterAllTextures" 
+        -overlayLabelColor 0.8 0.8 0.8 
+        -overlayLabelBackColor 0 0 0 0.5 
+        -image "texturePlacement.png" 
+        -image1 "texturePlacement.png" 
+        -style "iconOnly" 
+        -marginWidth 1
+        -marginHeight 1
+        -command "string $temp;\nstring $files[] = `ls -type file`;\nfor ($temp in $files)\n{\n    setAttr ($temp + \".filterType\") 3;\n}" 
+        -sourceType "mel" 
+        -commandRepeatable 1
+        -flat 1
+    ;
+    shelfButton
+        -enableCommandRepeat 1
+        -enable 1
+        -width 35
+        -height 35
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -annotation "MirrorAllTextureUVs: Make it so all UV nodes in the scene have U & V mirrored texture space" 
+        -enableBackground 0
+        -backgroundColor 0 0 0 
+        -highlightColor 0.321569 0.521569 0.65098 
+        -align "center" 
+        -label "MirrorAllTextureUVs" 
+        -labelOffset 0
+        -rotation 0
+        -flipX 0
+        -flipY 0
+        -useAlpha 1
+        -font "plainLabelFont" 
+        -imageOverlayLabel "MirrorAllTextureUVs" 
+        -overlayLabelColor 0.8 0.8 0.8 
+        -overlayLabelBackColor 0 0 0 0.5 
+        -image "UVEditorUV.png" 
+        -image1 "UVEditorUV.png" 
+        -style "iconOnly" 
+        -marginWidth 1
+        -marginHeight 1
+        -command "string $temp;\nstring $textures[] = `ls -type place2dTexture`;\nfor ($temp in $textures)\n{\n    setAttr ($temp + \".mirrorU\") 1;\n    setAttr ($temp + \".mirrorV\") 1;\n}" 
+        -sourceType "mel" 
+        -commandRepeatable 1
+        -flat 1
+    ;
+    shelfButton
+        -enableCommandRepeat 1
+        -enable 1
+        -width 35
+        -height 35
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -annotation "UnMirrorAllTextureUVs: Make all UV nodes in the scene have U & V mirroring set to false" 
+        -enableBackground 0
+        -backgroundColor 0 0 0 
+        -highlightColor 0.321569 0.521569 0.65098 
+        -align "center" 
+        -label "UnMirrorAllTextureUVs" 
+        -labelOffset 0
+        -rotation 0
+        -flipX 0
+        -flipY 0
+        -useAlpha 1
+        -font "plainLabelFont" 
+        -imageOverlayLabel "UnMirrorAllTextureUVs" 
+        -overlayLabelColor 0.8 0.8 0.8 
+        -overlayLabelBackColor 0 0 0 0.5 
+        -image "UVEditorUV.png" 
+        -image1 "UVEditorUV.png" 
+        -style "iconOnly" 
+        -marginWidth 1
+        -marginHeight 1
+        -command "string $temp;\nstring $textures[] = `ls -type place2dTexture`;\nfor ($temp in $textures)\n{\n    setAttr ($temp + \".mirrorU\") 0;\n    setAttr ($temp + \".mirrorV\") 0;\n}" 
+        -sourceType "mel" 
+        -commandRepeatable 1
+        -flat 1
+    ;
+    shelfButton
+        -enableCommandRepeat 1
+        -enable 1
+        -width 35
+        -height 35
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -annotation "TileAllTextureUVs: Make it so all UV nodes in the scene have repeating tiled texture space" 
+        -enableBackground 0
+        -backgroundColor 0 0 0 
+        -highlightColor 0.321569 0.521569 0.65098 
+        -align "center" 
+        -label "TileAllTextureUVs" 
+        -labelOffset 0
+        -rotation 0
+        -flipX 0
+        -flipY 0
+        -useAlpha 1
+        -font "plainLabelFont" 
+        -imageOverlayLabel "TileAllTextureUVs" 
+        -overlayLabelColor 0.8 0.8 0.8 
+        -overlayLabelBackColor 0 0 0 0.5 
+        -image "UVEditorShell.png" 
+        -image1 "UVEditorShell.png" 
+        -style "iconOnly" 
+        -marginWidth 1
+        -marginHeight 1
+        -command "string $temp;\nstring $textures[] = `ls -type place2dTexture`;\nfor ($temp in $textures)\n{\n    setAttr ($temp + \".wrapU\") 1;\n    setAttr ($temp + \".wrapV\") 1;\n}" 
+        -sourceType "mel" 
+        -commandRepeatable 1
+        -flat 1
+    ;
+    shelfButton
+        -enableCommandRepeat 1
+        -enable 1
+        -width 35
+        -height 35
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -annotation "UnTileAllTextureUVs: Make it so all UV nodes in the scene only have texture space within the 0-1 UV square, so the outside of this UV space is a solid color" 
+        -enableBackground 0
+        -backgroundColor 0 0 0 
+        -highlightColor 0.321569 0.521569 0.65098 
+        -align "center" 
+        -label "UnTileAllTextureUVs" 
+        -labelOffset 0
+        -rotation 0
+        -flipX 0
+        -flipY 0
+        -useAlpha 1
+        -font "plainLabelFont" 
+        -imageOverlayLabel "UnTileAllTextureUVs" 
+        -overlayLabelColor 0.8 0.8 0.8 
+        -overlayLabelBackColor 0 0 0 0.5 
+        -image "UVEditorShell.png" 
+        -image1 "UVEditorShell.png" 
+        -style "iconOnly" 
+        -marginWidth 1
+        -marginHeight 1
+        -command "string $temp;\nstring $textures[] = `ls -type place2dTexture`;\nfor ($temp in $textures)\n{\n    setAttr ($temp + \".wrapU\") 0;\n    setAttr ($temp + \".wrapV\") 0;\n}" 
+        -sourceType "mel" 
+        -commandRepeatable 1
+        -flat 1
+    ;
+    shelfButton
+        -enableCommandRepeat 1
+        -enable 1
+        -width 35
+        -height 35
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -annotation "ShowVertexColors: Make all objects in the scene display their polygon vertex colors" 
+        -enableBackground 0
+        -backgroundColor 0 0 0 
+        -highlightColor 0.321569 0.521569 0.65098 
+        -align "center" 
+        -label "ShowVertexColors" 
+        -labelOffset 0
+        -rotation 0
+        -flipX 0
+        -flipY 0
+        -useAlpha 1
+        -font "plainLabelFont" 
+        -imageOverlayLabel "ShowVertexColors" 
+        -overlayLabelColor 0.8 0.8 0.8 
+        -overlayLabelBackColor 0 0 0 0.5 
+        -image "polyColorMaterialAmbient.png" 
+        -image1 "polyColorMaterialAmbient.png" 
+        -style "iconOnly" 
+        -marginWidth 1
+        -marginHeight 1
+        -command "string $temp;\nstring $shapes[] = `ls -type shape`;\nfor ($temp in $shapes)\n{\n    if (`attributeQuery -node $temp -exists displayColors`)\n    {\n        setAttr ($temp + \".displayColors\") 1;\n        select -r $temp;\n        polyOptions -colorMaterialChannel ambient;\n        polyOptions -materialBlend multiply;\n    }\n}\n" 
+        -sourceType "mel" 
+        -commandRepeatable 1
+        -flat 1
+    ;
+    shelfButton
+        -enableCommandRepeat 1
+        -enable 1
+        -width 35
+        -height 35
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -annotation "HideVertexColors: Make all objects in the scene hide their polygon colors" 
+        -enableBackground 0
+        -backgroundColor 0 0 0 
+        -highlightColor 0.321569 0.521569 0.65098 
+        -align "center" 
+        -label "HideVertexColors" 
+        -labelOffset 0
+        -rotation 0
+        -flipX 0
+        -flipY 0
+        -useAlpha 1
+        -font "plainLabelFont" 
+        -imageOverlayLabel "HideVertexColors" 
+        -overlayLabelColor 0.8 0.8 0.8 
+        -overlayLabelBackColor 0 0 0 0.5 
+        -image "polyColorMaterialAmbientDiffuse.png" 
+        -image1 "polyColorMaterialAmbientDiffuse.png" 
+        -style "iconOnly" 
+        -marginWidth 1
+        -marginHeight 1
+        -command "string $temp;\nstring $shapes[] = `ls -type shape`;\nfor ($temp in $shapes)\n{\n    if (`attributeQuery -node $temp -exists displayColors`)\n    {\n        setAttr ($temp + \".displayColors\") 1;\n        select -r $temp;\n        polyOptions -colorMaterialChannel ambient;\n        polyOptions -materialBlend multiply;\n    }\n}\n" 
+        -sourceType "mel" 
+        -commandRepeatable 1
+        -flat 1
+    ;
+    shelfButton
+        -enableCommandRepeat 1
+        -enable 1
+        -width 35
+        -height 35
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -annotation "NoShade: Make all materials full-lit 100% diffuse" 
+        -enableBackground 0
+        -backgroundColor 0 0 0 
+        -highlightColor 0.321569 0.521569 0.65098 
+        -align "center" 
+        -label "NoShade" 
+        -labelOffset 0
+        -rotation 0
+        -flipX 0
+        -flipY 0
+        -useAlpha 1
+        -font "plainLabelFont" 
+        -imageOverlayLabel "NoShade" 
+        -overlayLabelColor 0.8 0.8 0.8 
+        -overlayLabelBackColor 0 0 0 0.5 
+        -image "toonBrightness2.png" 
+        -image1 "toonBrightness2.png" 
+        -style "iconOnly" 
+        -marginWidth 1
+        -marginHeight 1
+        -command "string $temp;\nstring $phongs[] = `ls -type phong`;\nfor ($temp in $phongs)\n{\n    setAttr ($temp + \".diffuse\") 0;\n    setAttr ($temp + \".incandescence\") -type double3 0 0 0 ;\n    setAttr ($temp + \".ambientColor\") -type double3 1 1 1 ;\n    setAttr ($temp + \".specularColor\") -type double3 0 0 0 ;\n}" 
+        -sourceType "mel" 
+        -commandRepeatable 1
+        -flat 1
+    ;
+    shelfButton
+        -enableCommandRepeat 1
+        -enable 1
+        -width 35
+        -height 35
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -annotation "CelShade: Make every material's ambient lighting use a simple 3-step ramp shader" 
+        -enableBackground 0
+        -backgroundColor 0 0 0 
+        -highlightColor 0.321569 0.521569 0.65098 
+        -align "center" 
+        -label "CelShade" 
+        -labelOffset 0
+        -rotation 0
+        -flipX 0
+        -flipY 0
+        -useAlpha 1
+        -font "plainLabelFont" 
+        -imageOverlayLabel "CelShade" 
+        -overlayLabelColor 0.8 0.8 0.8 
+        -overlayLabelBackColor 0 0 0 0.5 
+        -image "toonBrightness3.png" 
+        -image1 "toonBrightness3.png" 
+        -style "iconOnly" 
+        -marginWidth 1
+        -marginHeight 1
+        -command "string $celshader = `shadingNode -asShader rampShader`;\nsetAttr ($celshader + \".environment[0].environment_Color\") -type double3 0.1 0.1 0.1;\nsetAttr ($celshader + \".environment[0].environment_Position\") 0.05;\nsetAttr ($celshader + \".environment[0].environment_Interp\") 0;\nsetAttr ($celshader + \".environment[1].environment_Color\") -type double3 0.5 0.5 0.5;\nsetAttr ($celshader + \".environment[1].environment_Position\") 0.25;\nsetAttr ($celshader + \".environment[1].environment_Interp\") 0;\nsetAttr ($celshader + \".environment[2].environment_Color\") -type double3 1.0 1.0 1.0;\nsetAttr ($celshader + \".environment[2].environment_Position\") 0.50;\nsetAttr ($celshader + \".environment[2].environment_Interp\") 0;\nstring $temp;\nstring $phongs[] = `ls -type phong`;\nfor ($temp in $phongs)\n{\n    connectAttr -f ($celshader + \".outColor\") ($temp + \".ambientColor\");\n}" 
+        -sourceType "mel" 
+        -commandRepeatable 1
+        -flat 1
+    ;
+    shelfButton
+        -enableCommandRepeat 1
+        -enable 1
+        -width 35
+        -height 35
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -annotation "MergeAllVertices: Merges together any vertices that are within 0.001 distance of each other" 
+        -enableBackground 0
+        -backgroundColor 0 0 0 
+        -highlightColor 0.321569 0.521569 0.65098 
+        -align "center" 
+        -label "MergeAllVertices" 
+        -labelOffset 0
+        -rotation 0
+        -flipX 0
+        -flipY 0
+        -useAlpha 1
+        -font "plainLabelFont" 
+        -imageOverlayLabel "MergeAllVertices" 
+        -overlayLabelColor 0.8 0.8 0.8 
+        -overlayLabelBackColor 0 0 0 0.5 
+        -image "polyMergeVertex.png" 
+        -image1 "polyMergeVertex.png" 
+        -style "iconOnly" 
+        -marginWidth 1
+        -marginHeight 1
+        -command "string $temp;\nint $vertices[];\nstring $shapes[] = `ls -exactType transform`;\nfor ($temp in $shapes)\n{\n    print ($temp + \" -> \");\n    if ($temp != \"persp\" &&\n        $temp != \"front\" &&\n        $temp != \"side\" &&\n        $temp != \"top\")\n    {\n        $vertices = `polyEvaluate -vertex $temp`;\n        print ($vertices);\n        polyMergeVertex -ch 1 -d 0.001 ($temp + \".vtx[0:\" + $vertices[0] + \"]\");\n    }\n\telse print \"none\\n\";\n}" 
+        -sourceType "mel" 
+        -commandRepeatable 1
+        -flat 1
+    ;
+    shelfButton
+        -enableCommandRepeat 1
+        -enable 1
+        -width 35
+        -height 35
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -annotation "SoftenAllEdges: Makes every edge of every polygon object have soft normal shading" 
+        -enableBackground 0
+        -backgroundColor 0 0 0 
+        -highlightColor 0.321569 0.521569 0.65098 
+        -align "center" 
+        -label "SoftenAllEdges" 
+        -labelOffset 0
+        -rotation 0
+        -flipX 0
+        -flipY 0
+        -useAlpha 1
+        -font "plainLabelFont" 
+        -imageOverlayLabel "SoftenAllEdges" 
+        -overlayLabelColor 0.8 0.8 0.8 
+        -overlayLabelBackColor 0 0 0 0.5 
+        -image "polySoftEdge.png" 
+        -image1 "polySoftEdge.png" 
+        -style "iconOnly" 
+        -marginWidth 1
+        -marginHeight 1
+        -command "string $temp;\nint $edges[];\nstring $shapes[] = `ls -exactType transform`;\nfor ($temp in $shapes)\n{\n    print ($temp + \" -> \");\n    if ($temp != \"persp\" &&\n        $temp != \"front\" &&\n        $temp != \"side\" &&\n        $temp != \"top\")\n    {\n        $edges = `polyEvaluate -edge $temp`;\n        print ($edges);\n        polySoftEdge -ch 1 -a 180 ($temp + \".e[0:\" + $edges[0] + \"]\");\n    }\n\telse print \"none\\n\";\n}" 
+        -sourceType "mel" 
+        -commandRepeatable 1
+        -flat 1
+    ;
+    shelfButton
+        -enableCommandRepeat 1
+        -enable 1
+        -width 35
+        -height 35
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -annotation "HardenAllEdges: Makes every edge of every polygon object have hard polygonal normal shading" 
+        -enableBackground 0
+        -backgroundColor 0 0 0 
+        -highlightColor 0.321569 0.521569 0.65098 
+        -align "center" 
+        -label "HardenAllEdges" 
+        -labelOffset 0
+        -rotation 0
+        -flipX 0
+        -flipY 0
+        -useAlpha 1
+        -font "plainLabelFont" 
+        -imageOverlayLabel "HardenAllEdges" 
+        -overlayLabelColor 0.8 0.8 0.8 
+        -overlayLabelBackColor 0 0 0 0.5 
+        -image "polyHardEdge.png" 
+        -image1 "polyHardEdge.png" 
+        -style "iconOnly" 
+        -marginWidth 1
+        -marginHeight 1
+        -command "string $temp;\nint $edges[];\nstring $shapes[] = `ls -exactType transform`;\nfor ($temp in $shapes)\n{\n    print ($temp + \" -> \");\n    if ($temp != \"persp\" &&\n        $temp != \"front\" &&\n        $temp != \"side\" &&\n        $temp != \"top\")\n    {\n        $edges = `polyEvaluate -edge $temp`;\n        print ($edges);\n        polySoftEdge -ch 1 -a 0 ($temp + \".e[0:\" + $edges[0] + \"]\");\n    }\n\telse print \"none\\n\";\n}" 
+        -sourceType "mel" 
+        -commandRepeatable 1
+        -flat 1
+    ;
+    shelfButton
+        -enableCommandRepeat 1
+        -enable 1
+        -width 35
+        -height 35
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -annotation "SmallScreenshot: Saves a 168x145 png screenshot of the current view" 
+        -enableBackground 0
+        -backgroundColor 0 0 0 
+        -highlightColor 0.321569 0.521569 0.65098 
+        -align "center" 
+        -label "SmallScreenshot" 
+        -labelOffset 0
+        -rotation 0
+        -flipX 0
+        -flipY 0
+        -useAlpha 1
+        -font "plainLabelFont" 
+        -imageOverlayLabel "SmallScreenshot" 
+        -overlayLabelColor 0.8 0.8 0.8 
+        -overlayLabelBackColor 0 0 0 0.5 
+        -image "viewStereoEditor.png" 
+        -image1 "viewStereoEditor.png" 
+        -style "iconOnly" 
+        -marginWidth 1
+        -marginHeight 1
+        -command "string $window = `window\n    -w (148 + 2)\n    -h (125 + 2)\n    -backgroundColor 1 0 1\n    -title \"small icon render\"`;\npaneLayout;\nstring $editor = `modelEditor\n    -displayAppearance \"smoothShaded\"\n    -displayTextures on\n    -hud off\n    -grid off\n    -joints 0\n    -activeView`;\nshowWindow $window;\nstring $files[] = `ls -type file`;\nstring $filepath = dirname(`getAttr ($files[0] + \".fileTextureName\")`);\n$filepath = ($filepath + \"_icon-small.png\");\nprint (\"Saved image as \" + $filepath);\nrefresh -currentView -fileExtension \"png\" -filename ($filepath);" 
+        -sourceType "mel" 
+        -commandRepeatable 1
+        -flat 1
+    ;
+    shelfButton
+        -enableCommandRepeat 1
+        -enable 1
+        -width 35
+        -height 35
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -annotation "LargeScreenshot: Saves a 750x650 png screenshot of the current view" 
+        -enableBackground 0
+        -backgroundColor 0 0 0 
+        -highlightColor 0.321569 0.521569 0.65098 
+        -align "center" 
+        -label "LargeScreenshot" 
+        -labelOffset 0
+        -rotation 0
+        -flipX 0
+        -flipY 0
+        -useAlpha 1
+        -font "plainLabelFont" 
+        -imageOverlayLabel "LargeScreenshot" 
+        -overlayLabelColor 0.8 0.8 0.8 
+        -overlayLabelBackColor 0 0 0 0.5 
+        -image "viewStereoEditor.png" 
+        -image1 "viewStereoEditor.png" 
+        -style "iconOnly" 
+        -marginWidth 1
+        -marginHeight 1
+        -command "string $window = `window\n    -w (750 + 2)\n    -h (650 + 2)\n    -backgroundColor 1 0 1\n    -title \"large icon render\"`;\npaneLayout;\nstring $editor = `modelEditor\n    -displayAppearance \"smoothShaded\"\n    -displayTextures on\n    -hud off\n    -grid off\n    -joints 0\n    -activeView`;\nshowWindow $window;\nstring $files[] = `ls -type file`;\nstring $filepath = dirname(`getAttr ($files[0] + \".fileTextureName\")`);\n$filepath = ($filepath + \"_icon-large.png\");\nprint (\"Saved image as \" + $filepath);\nrefresh -currentView -fileExtension \"png\" -filename ($filepath);" 
+        -sourceType "mel" 
+        -commandRepeatable 1
+        -flat 1
+    ;
+
+} 

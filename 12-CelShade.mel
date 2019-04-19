@@ -1,0 +1,18 @@
+// CelShade
+// Make every material's ambient lighting use a simple 3-step ramp shader
+string $celshader = `shadingNode -asShader rampShader`;
+setAttr ($celshader + ".environment[0].environment_Color") -type double3 0.1 0.1 0.1;
+setAttr ($celshader + ".environment[0].environment_Position") 0.05;
+setAttr ($celshader + ".environment[0].environment_Interp") 0;
+setAttr ($celshader + ".environment[1].environment_Color") -type double3 0.5 0.5 0.5;
+setAttr ($celshader + ".environment[1].environment_Position") 0.25;
+setAttr ($celshader + ".environment[1].environment_Interp") 0;
+setAttr ($celshader + ".environment[2].environment_Color") -type double3 1.0 1.0 1.0;
+setAttr ($celshader + ".environment[2].environment_Position") 0.50;
+setAttr ($celshader + ".environment[2].environment_Interp") 0;
+string $temp;
+string $phongs[] = `ls -type phong`;
+for ($temp in $phongs)
+{
+    connectAttr -f ($celshader + ".outColor") ($temp + ".ambientColor");
+}

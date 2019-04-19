@@ -1,0 +1,11 @@
+// NoShade
+// Make all materials full-lit 100% diffuse
+string $temp;
+string $phongs[] = `ls -type phong`;
+for ($temp in $phongs)
+{
+    setAttr ($temp + ".diffuse") 0;
+    setAttr ($temp + ".incandescence") -type double3 0 0 0 ;
+    setAttr ($temp + ".ambientColor") -type double3 1 1 1 ;
+    setAttr ($temp + ".specularColor") -type double3 0 0 0 ;
+}

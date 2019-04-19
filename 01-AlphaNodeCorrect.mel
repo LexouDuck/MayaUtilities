@@ -1,0 +1,20 @@
+// AlphaNodeCorrect
+// Manually plugs in the output alpha of each texture node to its corresponding material node's input transparency.
+// Use this if the parts of the model which should be transparent appear opaque.
+string $temp;
+string $texture;
+string $textures[];
+string $phongs[] = `ls -type phong`;
+for ($temp in $phongs)
+{
+    $textures = `listConnections -type file $temp`;
+    for ($texture in $textures)
+    {
+        connectAttr -f ($texture + ".outAlpha") ($temp + ".transparencyR");
+        connectAttr -f ($texture + ".outAlpha") ($temp + ".transparencyG");
+        connectAttr -f ($texture + ".outAlpha") ($temp + ".transparencyB");
+    }
+    setAttr ($texture + ".alphaGain") -1;
+    setAttr ($texture + ".alphaOffset") 1;
+}
+setAttr "hardwareRenderingGlobals.transparencyAlgorithm" 3;

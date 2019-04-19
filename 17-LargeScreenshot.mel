@@ -1,0 +1,21 @@
+// LargeScreenshot
+// Saves a 750x650 png screenshot of the current view (without HUD elements and bone joints)
+string $window = `window
+    -w (750 + 2)
+    -h (650 + 2)
+    -backgroundColor 1 0 1
+    -title "large icon render"`;
+paneLayout;
+string $editor = `modelEditor
+    -displayAppearance "smoothShaded"
+    -displayTextures on
+    -hud off
+    -grid off
+    -joints 0
+    -activeView`;
+showWindow $window;
+string $files[] = `ls -type file`;
+string $filepath = dirname(`getAttr ($files[0] + ".fileTextureName")`);
+$filepath = ($filepath + "_icon-large.png");
+print ("Saved image as " + $filepath);
+refresh -currentView -fileExtension "png" -filename ($filepath);

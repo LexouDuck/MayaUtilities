@@ -1,0 +1,14 @@
+// HideVertexColors
+// Make all objects in the scene hide their polygon colors
+string $temp;
+string $shapes[] = `ls -type shape`;
+for ($temp in $shapes)
+{
+    if (`attributeQuery -node $temp -exists displayColors`)
+    {
+        setAttr ($temp + ".displayColors") 1;
+        select -r $temp;
+        polyOptions -colorMaterialChannel ambient;
+        polyOptions -materialBlend multiply;
+    }
+}

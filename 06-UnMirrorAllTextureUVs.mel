@@ -1,0 +1,9 @@
+// UnMirrorAllTextureUVs
+// Make all UV nodes in the scene have U & V mirroring set to false
+string $temp;
+string $textures[] = `ls -type place2dTexture`;
+for ($temp in $textures)
+{
+    setAttr ($temp + ".mirrorU") 0;
+    setAttr ($temp + ".mirrorV") 0;
+}

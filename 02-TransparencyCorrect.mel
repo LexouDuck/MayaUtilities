@@ -1,0 +1,10 @@
+// TransparencyCorrect
+// Make alpha channels work properly for imported models by setting 'alpha is luminance' to false.
+// Use this when the entire model is more or less see-through, it will make the correct parts of the model opaque as they should be.
+string $temp;
+string $files[] = `ls -type file`;
+for ($temp in $files)
+{
+    setAttr ($temp + ".alphaIsLuminance") 0;
+}
+setAttr "hardwareRenderingGlobals.transparencyAlgorithm" 3;
