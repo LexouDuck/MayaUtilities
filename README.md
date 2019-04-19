@@ -4,7 +4,7 @@
 
 This is a set of MEL scripts useful for anyone importing models into Maya often
 
-![Custom Shelf](shelf.png)
+![Custom Shelf](img/shelf.png)
 
 All of the individual scripts on this repo are stored within the button shelf file 'shelf_Custom.mel'
 
