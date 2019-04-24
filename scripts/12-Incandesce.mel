@@ -1,0 +1,9 @@
+// Incandesce
+// Makes every material in the scene have its Incandescence to white (1, 1, 1).
+// This might be useful to have 'NoShade' rendering on the Maya default legacy viewport.
+string $temp;
+string $phongs[] = `ls -type phong`;
+for ($temp in $phongs)
+{
+    setAttr ($temp + ".incandescence") -type double3 1 1 1 ;
+}

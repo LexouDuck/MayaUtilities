@@ -1,0 +1,27 @@
+// FaceCameraAlways
+// Makes it so the selected polygon faces are always facing the camera, with an aim constraint to 'persp'
+string $faces[] = `ls -selection -flatten`;
+string $polys[];
+string $poly;
+int $face_id;
+string $temp;
+for ($temp in $faces)
+{
+	$face_id = (int)`match "([0123456789]+)" $temp`;
+	print ($temp + " -> " + $face_id + ": ");
+	$polys = `listRelatives -parent $temp`;
+	$poly = $polys[0];
+	print ($poly + " -> ");
+	$polys = `polySeparate -sss $face_id $poly`;
+	$poly = $polys[0];
+	print ($poly + "\n");
+	select -r "persp";
+	select -add $poly;
+	aimConstraint
+		-offset 0 0 0
+		-weight 1
+		-aimVector 0 0 1
+		-upVector 0 1 0
+		-worldUpType "vector"
+		-worldUpVector 0 1 0;
+}" 

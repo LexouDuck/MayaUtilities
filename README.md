@@ -20,29 +20,61 @@ For more details on importing models into Maya and what these scripts do, see [t
 
 Here is a short description of each MEL script:
 ---
+
 - **AlphaNodeCorrect**: Manually plugs in the output alpha of each texture node to its corresponding material node's input transparency. Use this if the parts of the model which should be transparent appear opaque.
+
 - **TransparencyCorrect**: Make alpha channels work properly for imported models by setting 'alpha is luminance' to false. Use this when the entire model is more or less see-through, it will make the correct parts of the model opaque as they should be.
+
 ---
+
 - **UnfilterAllTextures**: Sets every image texture in the scene to be unfiltered (ie: aliased, pixelated)
+
 - **FilterAllTextures**: Sets every image texture in the scene to have quadratic bilinear filtering
+
 ---
+
 - **MirrorAllTextureUVs**: Make it so all UV nodes in the scene have U & V mirrored texture space
+
 - **UnMirrorAllTextureUVs**: Make all UV nodes in the scene have U & V mirroring set to false
+
 ---
+
 - **TileAllTextureUVs**: Make it so all UV nodes in the scene have repeating tiled texture space
+
 - **UnTileAllTextureUVs**: Make it so all UV nodes in the scene only have texture space within the 0-1 UV square, so the outside of this UV space is a solid color
+
 ---
+
 - **ShowVertexColors**: Make all objects in the scene display their polygon vertex colors
+
 - **HideVertexColors**: Make all objects in the scene hide their polygon colors
+
 ---
+
 - **NoShade**: Make all materials full-lit 100% diffuse
+
+- **Incandesce**: Make all materials have their 'Incandescence' set to 1 - can be useful to get that full-lit look on the Maya legacy default viewport.
+
 - **CelShade**: Make every material's ambient lighting use a simple 3-step ramp shader
+
 ---
+
 - **MergeAllVertices**: Merges together any vertices that are within 0.001 distance of each other
+
 ---
+
 - **SoftenAllEdges**: Makes every edge of every polygon object have soft normal shading
+
 - **HardenAllEdges**: Makes every edge of every polygon object have hard polygonal normal shading
+
 ---
+
+- **FaceCameraAlways**: Makes it so the selected polygon faces are always facing the camera, with an aim constraint to 'persp'
+
+---
+
 and these last 2 scripts are specifically intended for submitting model rips to [the Models Resource](https://www.models-resource.com/)
+
 - **SmallScreenshot**: Saves a 168x145 png screenshot of the current view (without HUD elements and bone joints)
+
 - **LargeScreenshot**: Saves a 750x650 png screenshot of the current view (without HUD elements and bone joints)

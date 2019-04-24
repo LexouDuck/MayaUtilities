@@ -1,4 +1,4 @@
-global proc shelf_Custom () {
+global proc shelf_Utilities () {
     global string $gBuffStr;
     global string $gBuffStr0;
     global string $gBuffStr1;
@@ -70,6 +70,19 @@ global proc shelf_Custom () {
         -commandRepeatable 1
         -flat 1
     ;
+    separator
+        -enable 1
+        -width 12
+        -height 35
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -enableBackground 0
+        -backgroundColor 0 0 0 
+        -highlightColor 0.321569 0.521569 0.65098 
+        -style "shelf" 
+        -horizontal 0
+    ;
     shelfButton
         -enableCommandRepeat 1
         -enable 1
@@ -135,6 +148,19 @@ global proc shelf_Custom () {
         -sourceType "mel" 
         -commandRepeatable 1
         -flat 1
+    ;
+    separator
+        -enable 1
+        -width 12
+        -height 35
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -enableBackground 0
+        -backgroundColor 0 0 0 
+        -highlightColor 0.321569 0.521569 0.65098 
+        -style "shelf" 
+        -horizontal 0
     ;
     shelfButton
         -enableCommandRepeat 1
@@ -202,6 +228,19 @@ global proc shelf_Custom () {
         -commandRepeatable 1
         -flat 1
     ;
+    separator
+        -enable 1
+        -width 12
+        -height 35
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -enableBackground 0
+        -backgroundColor 0 0 0 
+        -highlightColor 0.321569 0.521569 0.65098 
+        -style "shelf" 
+        -horizontal 0
+    ;
     shelfButton
         -enableCommandRepeat 1
         -enable 1
@@ -267,6 +306,19 @@ global proc shelf_Custom () {
         -sourceType "mel" 
         -commandRepeatable 1
         -flat 1
+    ;
+    separator
+        -enable 1
+        -width 12
+        -height 35
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -enableBackground 0
+        -backgroundColor 0 0 0 
+        -highlightColor 0.321569 0.521569 0.65098 
+        -style "shelf" 
+        -horizontal 0
     ;
     shelfButton
         -enableCommandRepeat 1
@@ -375,6 +427,39 @@ global proc shelf_Custom () {
         -manage 1
         -visible 1
         -preventOverride 0
+        -annotation "Incandesce: Makes every material in the scene have its Incandescence to white (1, 1, 1).\\nThis might be useful to have 'NoShade' rendering on the Maya default legacy viewport." 
+        -enableBackground 0
+        -backgroundColor 0 0 0 
+        -highlightColor 0.321569 0.521569 0.65098 
+        -align "center" 
+        -label "Incandesce" 
+        -labelOffset 0
+        -rotation 0
+        -flipX 0
+        -flipY 0
+        -useAlpha 1
+        -font "plainLabelFont" 
+        -imageOverlayLabel "Incandesce" 
+        -overlayLabelColor 0.8 0.8 0.8 
+        -overlayLabelBackColor 0 0 0 0.5 
+        -image "toonSolid.png" 
+        -image1 "toonSolid.png" 
+        -style "iconOnly" 
+        -marginWidth 1
+        -marginHeight 1
+        -command "string $temp;\nstring $phongs[] = `ls -type phong`;\nfor ($temp in $phongs)\n{\n    setAttr ($temp + \".incandescence\") -type double3 1 1 1 ;\n}" 
+        -sourceType "mel" 
+        -commandRepeatable 1
+        -flat 1
+    ;
+    shelfButton
+        -enableCommandRepeat 1
+        -enable 1
+        -width 35
+        -height 35
+        -manage 1
+        -visible 1
+        -preventOverride 0
         -annotation "CelShade: Make every material's ambient lighting use a simple 3-step ramp shader" 
         -enableBackground 0
         -backgroundColor 0 0 0 
@@ -399,6 +484,19 @@ global proc shelf_Custom () {
         -sourceType "mel" 
         -commandRepeatable 1
         -flat 1
+    ;
+    separator
+        -enable 1
+        -width 12
+        -height 35
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -enableBackground 0
+        -backgroundColor 0 0 0 
+        -highlightColor 0.321569 0.521569 0.65098 
+        -style "shelf" 
+        -horizontal 0
     ;
     shelfButton
         -enableCommandRepeat 1
@@ -499,6 +597,65 @@ global proc shelf_Custom () {
         -commandRepeatable 1
         -flat 1
     ;
+    separator
+        -enable 1
+        -width 12
+        -height 35
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -enableBackground 0
+        -backgroundColor 0 0 0 
+        -highlightColor 0.321569 0.521569 0.65098 
+        -style "shelf" 
+        -horizontal 0
+    ;
+    shelfButton
+        -enableCommandRepeat 1
+        -enable 1
+        -width 35
+        -height 35
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -annotation "FaceCameraAlways: Makes it so the selected polygon faces are always facing the camera, with an aim constraint to 'persp'" 
+        -enableBackground 0
+        -backgroundColor 0 0 0 
+        -highlightColor 0.321569 0.521569 0.65098 
+        -align "center" 
+        -label "FaceCameraAlways" 
+        -labelOffset 0
+        -rotation 0
+        -flipX 0
+        -flipY 0
+        -useAlpha 1
+        -font "plainLabelFont" 
+        -imageOverlayLabel "FaceCameraAlways" 
+        -overlayLabelColor 0.8 0.8 0.8 
+        -overlayLabelBackColor 0 0 0 0.5 
+        -image "cameraAim.png" 
+        -image1 "cameraAim.png" 
+        -style "iconOnly" 
+        -marginWidth 1
+        -marginHeight 1
+        -command "string $faces[] = `ls -selection -flatten`;\nstring $polys[];\nstring $poly;\nint $face_id;\nstring $temp;\nfor ($temp in $faces)\n{\n    $face_id = (int)`match \"([0123456789]+)\" $temp`;\n    print ($temp + \" -> \" + $face_id + \": \");\n    $polys = `listRelatives -parent $temp`;\n    $poly = $polys[0];\n    print ($poly + \" -> \");\n    $polys = `polySeparate -sss $face_id $poly`;\n    $poly = $polys[0];\n    print ($poly + \"\\n\");\n    select -r \"persp\";\n    select -add $poly;\n\taimConstraint\n\t    -offset 0 0 0\n\t    -weight 1\n\t    -aimVector 0 0 1\n\t    -upVector 0 1 0\n\t    -worldUpType \"vector\"\n\t    -worldUpVector 0 1 0;\n}" 
+        -sourceType "mel" 
+        -commandRepeatable 1
+        -flat 1
+    ;
+    separator
+        -enable 1
+        -width 12
+        -height 35
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -enableBackground 0
+        -backgroundColor 0 0 0 
+        -highlightColor 0.321569 0.521569 0.65098 
+        -style "shelf" 
+        -horizontal 0
+    ;
     shelfButton
         -enableCommandRepeat 1
         -enable 1
@@ -527,7 +684,7 @@ global proc shelf_Custom () {
         -style "iconOnly" 
         -marginWidth 1
         -marginHeight 1
-        -command "string $window = `window\n    -w (148 + 2)\n    -h (125 + 2)\n    -backgroundColor 1 0 1\n    -title \"small icon render\"`;\npaneLayout;\nstring $editor = `modelEditor\n    -displayAppearance \"smoothShaded\"\n    -displayTextures on\n    -hud off\n    -grid off\n    -joints 0\n    -activeView`;\nshowWindow $window;\nstring $files[] = `ls -type file`;\nstring $filepath = dirname(`getAttr ($files[0] + \".fileTextureName\")`);\n$filepath = ($filepath + \"_icon-small.png\");\nprint (\"Saved image as \" + $filepath);\nrefresh -currentView -fileExtension \"png\" -filename ($filepath);" 
+        -command "string $window = `window\n    -w (148 + 2)\n    -h (125 + 2)\n    -backgroundColor 1 0 1\n    -title \"small icon render\"`;\npaneLayout;\nstring $editor = `modelEditor\n\t-transparencyAlgorithm \"perPolygonSort\"\n    -displayAppearance \"smoothShaded\"\n    -displayTextures on\n    -hud off\n    -grid off\n    -joints 0\n    -activeView`;\nshowWindow $window;\nstring $files[] = `ls -type file`;\nstring $filepath = dirname(`getAttr ($files[0] + \".fileTextureName\")`);\n$filepath = ($filepath + \"_icon-small.png\");\nprint (\"Saved image as \" + $filepath);\nrefresh -currentView -fileExtension \"png\" -filename ($filepath);" 
         -sourceType "mel" 
         -commandRepeatable 1
         -flat 1
@@ -560,7 +717,7 @@ global proc shelf_Custom () {
         -style "iconOnly" 
         -marginWidth 1
         -marginHeight 1
-        -command "string $window = `window\n    -w (750 + 2)\n    -h (650 + 2)\n    -backgroundColor 1 0 1\n    -title \"large icon render\"`;\npaneLayout;\nstring $editor = `modelEditor\n    -displayAppearance \"smoothShaded\"\n    -displayTextures on\n    -hud off\n    -grid off\n    -joints 0\n    -activeView`;\nshowWindow $window;\nstring $files[] = `ls -type file`;\nstring $filepath = dirname(`getAttr ($files[0] + \".fileTextureName\")`);\n$filepath = ($filepath + \"_icon-large.png\");\nprint (\"Saved image as \" + $filepath);\nrefresh -currentView -fileExtension \"png\" -filename ($filepath);" 
+        -command "string $window = `window\n    -w (750 + 2)\n    -h (650 + 2)\n    -backgroundColor 1 0 1\n    -title \"large icon render\"`;\npaneLayout;\nstring $editor = `modelEditor\n\t-transparencyAlgorithm \"perPolygonSort\"\n    -displayAppearance \"smoothShaded\"\n    -displayTextures on\n    -hud off\n    -grid off\n    -joints 0\n    -activeView`;\nshowWindow $window;\nstring $files[] = `ls -type file`;\nstring $filepath = dirname(`getAttr ($files[0] + \".fileTextureName\")`);\n$filepath = ($filepath + \"_icon-large.png\");\nprint (\"Saved image as \" + $filepath);\nrefresh -currentView -fileExtension \"png\" -filename ($filepath);" 
         -sourceType "mel" 
         -commandRepeatable 1
         -flat 1
