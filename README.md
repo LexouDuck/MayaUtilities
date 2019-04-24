@@ -69,7 +69,7 @@ Here is a short description of each MEL script:
 
 ---
 
-- **FaceCameraAlways**: Makes it so the selected polygon faces are always facing the camera, with an aim constraint to 'persp'
+- **FaceCameraAlways**: Makes it so the selected polygon faces are always facing the camera, with an aim constraint set to the default maya 'persp' camera.
 
 ---
 
