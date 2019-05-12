@@ -18,6 +18,10 @@ Otherwise, the individual scripts can be copy-pasted into the Script Editor MEL 
 
 For more details on importing models into Maya and what these scripts do, see [this page](https://github.com/scurest/apicula/wiki/IMPORT:-Maya)
 
+**Animation Notice**
+If you have trouble importing animations into Maya from COLLADA DAE models, you can use [this script by Inferry & scurest](https://gist.github.com/scurest/0db0cc8eec1ac744f88afbe1d320f3da) which will split a DAE file into several files, one for each animation.
+You can run this script by saving doing `py splitter.py file.dae` in the directory where you put it.
+
 Here is a short description of each MEL script:
 ---
 
